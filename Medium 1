@@ -1,0 +1,73 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def lowestCommonAncestor(root, p, q):
+    # If both nodes are smaller than the root, LCA must be in the left subtree
+    if p.val < root.val and q.val < root.val:
+        return lowestCommonAncestor(root.left, p, q)
+    
+    # If both nodes are greater than the root, LCA must be in the right subtree
+    elif p.val > root.val and q.val > root.val:
+        return lowestCommonAncestor(root.right, p, q)
+    
+    # If one node is smaller and the other is greater, root is the LCA
+    else:
+        return root
+
+# Example usage
+# Construct the BST from the given input
+root1 = TreeNode(6)
+root1.left = TreeNode(2, TreeNode(0), TreeNode(4, TreeNode(3), TreeNode(5)))
+root1.right = TreeNode(8, TreeNode(7), TreeNode(9))
+
+# Example 1
+p1 = TreeNode(2)
+q1 = TreeNode(8)
+result1 = lowestCommonAncestor(root1, p1, q1)
+print(result1.val)  # Output: 6
+
+# Example 2
+p2 = TreeNode(2)
+q2 = TreeNode(4)
+result2 = lowestCommonAncestor(root1, p2, q2)
+print(result2.val)  # Output: 2
+
+# Example 3
+root2 = TreeNode(2, TreeNode(1))
+p3 = TreeNode(2)
+q3 = TreeNode(1)
+result3 = lowestCommonAncestor(root2, p3, q3)
+print(result3.val)  # Output: 2
+
+Output
+6
+2
+2
+
+Explanation
+Logic:
+The provided code is implementing a recursive algorithm to find the Lowest Common Ancestor (LCA) of two nodes in a Binary Search Tree (BST). The logic is based on the properties of BSTs:
+
+If both nodes are smaller than the current root, then the LCA must be in the left subtree.
+If both nodes are greater than the current root, then the LCA must be in the right subtree.
+If one node is smaller and the other is greater, then the current root is the LCA.
+Algorithm:
+Function: lowestCommonAncestor
+
+Parameters:
+
+root: The current root of the subtree.
+p: The first node.
+q: The second node.
+Base Cases:
+
+If root is None, return None (no LCA found).
+If both p and q are in the same subtree, return the current root as the LCA.
+Recursive Steps:
+
+If both p and q are smaller than the current root, call the function recursively on the left subtree.
+If both p and q are greater than the current root, call the function recursively on the right subtree.
+If one node is smaller and the other is greater, return the current root as the LCA.
