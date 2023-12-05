@@ -1,0 +1,53 @@
+from collections import deque
+
+def maxSlidingWindow(nums, k):
+    if not nums or k == 0:
+        return []
+
+    result = []
+    max_deque = deque()
+
+    # Process the first k elements separately to initialize the deque
+    for i in range(k):
+        while max_deque and nums[i] >= nums[max_deque[-1]]:
+            max_deque.pop()
+        max_deque.append(i)
+
+    # Process the remaining elements
+    for i in range(k, len(nums)):
+        result.append(nums[max_deque[0]])
+
+        # Remove elements that are out of the current sliding window
+        while max_deque and max_deque[0] <= i - k:
+            max_deque.popleft()
+
+        # Remove elements smaller than the current element from the back of the deque
+        while max_deque and nums[i] >= nums[max_deque[-1]]:
+            max_deque.pop()
+
+        max_deque.append(i)
+
+    # Add the maximum element of the last window to the result
+    result.append(nums[max_deque[0]])
+
+    return result
+
+# Test cases
+print(maxSlidingWindow([1], 1))  # Output: [1]
+print(maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3))  # Output: [3, 3, 5, 5, 6, 7]
+
+Output
+[1]
+[3, 3, 5, 5, 6, 7]
+> Explanation:
+The function maxSlidingWindow takes an array nums and an integer k as input and returns a list containing the maximum element in each sliding window of size k.
+
+A deque (max_deque) is used to store the indices of elements in a decreasing order of their values. This allows easy retrieval of the maximum element in the current sliding window.
+
+The first loop initializes the deque for the first sliding window of size k.
+
+The second loop processes the remaining elements, updating the deque to maintain the maximum element in the current sliding window.
+
+The result list stores the maximum element for each sliding window.
+
+The final result is returned.
