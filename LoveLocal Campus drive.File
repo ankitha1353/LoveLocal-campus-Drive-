@@ -25,3 +25,23 @@ output is
 5
 4
 6
+Explanation
+Function: length_of_last_word
+Input Parameter:
+
+The function takes a single parameter s, which is a string consisting of words and spaces.
+Split the String into Words:
+
+The split() method is used to split the input string s into a list of words.
+It splits the string based on whitespace, and consecutive whitespaces are treated as a single separator.
+Check for Words:
+
+The code checks if there are any words in the string by using the if not words condition.
+If the words list is empty (no words found), the function returns 0, indicating that there are no words.
+Extract Length of the Last Word:
+
+If there are words in the string, the length of the last word is extracted.
+The length is obtained by taking the length of the last element in the words list (len(words[-1])).
+Return the Result:
+
+The function returns the length of the last word (last_word_length).
